@@ -7,25 +7,25 @@
 </head>
 <body>
   <div class="page">
-    <div class="brand">
-      <span class="brand-mark"></span>
-      <span class="brand-name">Aston Martin Green Edition</span>
-    </div>
+    <header>
+      <div class="wordmark">day<span>04</span></div>
+      <nav>
+        <a href="index.html">index</a>
+        <a href="about.html">about</a>
+        <a href="preview.html" class="active">preview</a>
+      </nav>
+    </header>
 
-    <nav>
-      <a href="index.html">index</a>
-      <a href="about.html">about</a>
-      <a href="preview.html" class="active">preview</a>
-    </nav>
+    <main>
+      <h1>test_todos</h1>
+      <p class="lede">Supabase의 test_todos 테이블을 그대로 불러와 보여줍니다.</p>
 
-    <div class="card">
-      <h1>test_todos 목록</h1>
-      <ul id="todo-list">
-        <li>불러오는 중...</li>
+      <ul class="todo-table" id="todo-list">
+        <li class="state-msg">불러오는 중...</li>
       </ul>
-    </div>
 
-    <a class="back-link" href="index.html">← index로 돌아가기</a>
+      <a class="back" href="index.html">index로 돌아가기</a>
+    </main>
   </div>
 
   <script>
@@ -52,50 +52,48 @@
         listEl.innerHTML = "";
 
         if (todos.length === 0) {
-          listEl.innerHTML = "<li>데이터가 없습니다.</li>";
+          listEl.innerHTML = '<li class="state-msg">데이터가 없습니다.</li>';
           return;
         }
 
         todos.forEach((todo) => {
           const li = document.createElement("li");
-          li.className = `todo-item ${todo.done ? "done" : ""}`;
 
-          const main = document.createElement("div");
-          main.className = "todo-main";
+          const row = document.createElement("div");
+          row.className = `todo-row ${todo.done ? "done" : ""}`;
 
-          const title = document.createElement("div");
+          const title = document.createElement("span");
           title.className = "todo-title";
           title.textContent = todo.title ?? "(제목 없음)";
-          main.appendChild(title);
-
-          const metaParts = [];
-          if (todo.amount !== undefined && todo.amount !== null) {
-            metaParts.push(`수량: ${todo.amount}`);
-          }
-          if (todo.due_date) {
-            metaParts.push(`마감일: ${todo.due_date}`);
-          }
-          if (todo.created_at) {
-            metaParts.push(`등록일: ${new Date(todo.created_at).toLocaleDateString("ko-KR")}`);
-          }
-          if (metaParts.length > 0) {
-            const meta = document.createElement("div");
-            meta.className = "todo-meta";
-            meta.textContent = metaParts.join(" · ");
-            main.appendChild(meta);
-          }
-
-          li.appendChild(main);
+          row.appendChild(title);
 
           const status = document.createElement("span");
           status.className = `todo-status ${todo.done ? "done" : "pending"}`;
           status.textContent = todo.done ? "완료" : "진행 중";
-          li.appendChild(status);
+          row.appendChild(status);
 
+          const metaParts = [];
+          if (todo.amount !== undefined && todo.amount !== null) {
+            metaParts.push(`수량 ${todo.amount}`);
+          }
+          if (todo.due_date) {
+            metaParts.push(`마감 ${todo.due_date}`);
+          }
+          if (todo.created_at) {
+            metaParts.push(`등록 ${new Date(todo.created_at).toLocaleDateString("ko-KR")}`);
+          }
+          if (metaParts.length > 0) {
+            const meta = document.createElement("span");
+            meta.className = "todo-meta";
+            meta.textContent = metaParts.join("  ·  ");
+            row.appendChild(meta);
+          }
+
+          li.appendChild(row);
           listEl.appendChild(li);
         });
       } catch (err) {
-        listEl.innerHTML = `<li>불러오기 실패: ${err.message}</li>`;
+        listEl.innerHTML = `<li class="state-msg">불러오기 실패: ${err.message}</li>`;
       }
     }
 
@@ -103,4 +101,3 @@
   </script>
 </body>
 </html>
-

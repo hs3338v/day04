@@ -1,12 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500&display=swap");
+
 :root {
-  --am-green-950: #041712;
-  --am-green-900: #082a1f;
-  --am-green-800: #0c4531;
-  --am-green-700: #106143;
-  --am-green-600: #1a8a5e;
-  --am-gold: #c9a66b;
-  --am-cream: #f3efe4;
-  --am-text-dim: #b9c9be;
+  --ink: #e9e6da;
+  --ink-dim: #9fada2;
+  --bg: #08170f;
+  --line: rgba(233, 230, 218, 0.14);
+  --accent: #a8874f;
 }
 
 * {
@@ -15,192 +14,201 @@
 
 body {
   margin: 0;
-  min-height: 100vh;
-  font-family: "Segoe UI", -apple-system, "Malgun Gothic", sans-serif;
-  background: radial-gradient(circle at 20% 0%, var(--am-green-800), var(--am-green-950) 70%);
-  color: var(--am-cream);
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", "Malgun Gothic", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
 }
 
 .page {
-  max-width: 720px;
+  max-width: 640px;
   margin: 0 auto;
-  padding: 48px 20px 64px;
+  padding: 0 24px;
 }
 
-.brand {
+header {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 40px;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 40px 0 22px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 56px;
 }
 
-.brand-mark {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--am-gold);
-  box-shadow: 0 0 12px var(--am-gold);
+.wordmark {
+  font-family: "Fraunces", serif;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
 }
 
-.brand-name {
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  font-size: 13px;
-  color: var(--am-gold);
+.wordmark span {
+  color: var(--accent);
+  font-style: italic;
 }
 
 nav {
   display: flex;
-  gap: 18px;
-  margin-bottom: 36px;
+  gap: 22px;
 }
 
 nav a {
-  color: var(--am-cream);
+  color: var(--ink-dim);
   text-decoration: none;
-  font-size: 14px;
-  padding: 8px 16px;
-  border: 1px solid var(--am-green-600);
-  border-radius: 999px;
-  transition: background 0.2s, color 0.2s;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  padding-bottom: 4px;
+  border-bottom: 1px solid transparent;
 }
 
-nav a:hover,
+nav a:hover {
+  color: var(--ink);
+}
+
 nav a.active {
-  background: var(--am-green-600);
-  color: var(--am-green-950);
-  font-weight: 600;
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+}
+
+main {
+  padding-bottom: 80px;
 }
 
 h1 {
-  font-size: 34px;
-  margin: 0 0 12px;
-  color: var(--am-cream);
+  font-family: "Fraunces", serif;
+  font-weight: 500;
+  font-size: clamp(32px, 6vw, 44px);
+  line-height: 1.15;
+  margin: 0 0 18px;
+  letter-spacing: -0.01em;
 }
 
-h2 {
-  font-size: 20px;
-  color: var(--am-gold);
-  margin: 0 0 16px;
+.lede {
+  color: var(--ink-dim);
+  max-width: 42ch;
+  margin: 0 0 40px;
+  font-size: 16px;
 }
 
-p {
-  line-height: 1.7;
-  color: var(--am-text-dim);
-}
-
-.card {
-  background: linear-gradient(160deg, var(--am-green-900), var(--am-green-950));
-  border: 1px solid var(--am-green-700);
-  border-radius: 14px;
-  padding: 28px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
-}
-
-.link-list {
-  list-style: none;
-  padding: 0;
-  margin: 24px 0 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.link-list a {
-  display: block;
-  padding: 14px 18px;
-  background: var(--am-green-800);
-  border: 1px solid var(--am-green-600);
-  border-radius: 10px;
-  color: var(--am-cream);
-  text-decoration: none;
-  font-weight: 600;
-  transition: transform 0.15s, background 0.15s;
-}
-
-.link-list a:hover {
-  background: var(--am-green-600);
-  color: var(--am-green-950);
-  transform: translateX(4px);
-}
-
-.back-link {
-  display: inline-block;
-  margin-top: 28px;
-  color: var(--am-gold);
-  text-decoration: none;
-  font-size: 14px;
-}
-
-.back-link:hover {
-  text-decoration: underline;
-}
-
-#todo-list {
+.index-list {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
 }
 
-.todo-item {
+.index-list li {
+  border-top: 1px solid var(--line);
+}
+
+.index-list li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.index-list a {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
-  gap: 12px;
-  padding: 16px 18px;
-  border: 1px solid var(--am-green-700);
-  border-radius: 10px;
-  background: var(--am-green-900);
+  gap: 16px;
+  padding: 20px 2px;
+  color: var(--ink);
+  text-decoration: none;
+  font-family: "Fraunces", serif;
+  font-size: 19px;
 }
 
-.todo-item.done {
-  border-color: var(--am-green-600);
-  background: linear-gradient(160deg, var(--am-green-800), var(--am-green-900));
-  opacity: 0.75;
+.index-list a::after {
+  content: "\2192";
+  color: var(--accent);
+  font-family: "Inter", sans-serif;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
 }
 
-.todo-main {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+.index-list a:hover::after {
+  opacity: 1;
+  transform: translateX(0);
 }
 
-.todo-title {
-  font-weight: 600;
-  font-size: 16px;
-  color: var(--am-cream);
-}
-
-.todo-item.done .todo-title {
-  text-decoration: line-through;
-  color: var(--am-text-dim);
-}
-
-.todo-meta {
-  font-size: 13px;
-  color: var(--am-text-dim);
-}
-
-.todo-status {
-  flex-shrink: 0;
+.index-list small {
+  font-family: "Inter", sans-serif;
   font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  padding: 5px 12px;
-  border-radius: 999px;
+  color: var(--ink-dim);
   white-space: nowrap;
 }
 
+.back {
+  display: inline-block;
+  margin-top: 8px;
+  color: var(--ink-dim);
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.back:hover {
+  color: var(--ink);
+}
+
+.back::before {
+  content: "\2190 ";
+}
+
+/* preview page */
+
+.todo-table {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.todo-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 4px 16px;
+  padding: 18px 2px;
+  border-top: 1px solid var(--line);
+}
+
+.todo-table li:last-child .todo-row {
+  border-bottom: 1px solid var(--line);
+}
+
+.todo-title {
+  font-family: "Fraunces", serif;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.todo-row.done .todo-title {
+  color: var(--ink-dim);
+  text-decoration: line-through;
+  text-decoration-color: var(--line);
+}
+
+.todo-status {
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-align: right;
+}
+
 .todo-status.done {
-  background: var(--am-gold);
-  color: var(--am-green-950);
+  color: var(--accent);
 }
 
 .todo-status.pending {
-  background: transparent;
-  border: 1px solid var(--am-gold);
-  color: var(--am-gold);
+  color: var(--ink-dim);
+}
+
+.todo-meta {
+  grid-column: 1 / -1;
+  font-size: 13px;
+  color: var(--ink-dim);
+}
+
+.state-msg {
+  color: var(--ink-dim);
+  font-size: 14px;
+  padding: 18px 2px;
 }
