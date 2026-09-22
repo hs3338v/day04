@@ -3,6 +3,76 @@
 <head>
   <meta charset="UTF-8">
   <title>preview</title>
+  <style>
+    body {
+      font-family: -apple-system, "Segoe UI", sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 0 16px;
+      color: #222;
+    }
+    h1 {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+    #todo-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .todo-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      background: #fafafa;
+    }
+    .todo-item.done {
+      background: #f0f8f0;
+      opacity: 0.7;
+    }
+    .todo-main {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .todo-title {
+      font-weight: 600;
+      font-size: 16px;
+    }
+    .todo-item.done .todo-title {
+      text-decoration: line-through;
+    }
+    .todo-meta {
+      font-size: 13px;
+      color: #666;
+    }
+    .todo-status {
+      flex-shrink: 0;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .todo-status.done {
+      background: #d4edda;
+      color: #256029;
+    }
+    .todo-status.pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+    a {
+      display: inline-block;
+      margin-top: 12px;
+      color: #555;
+    }
+  </style>
 </head>
 <body>
   <h1>test_todos 목록</h1>
@@ -41,7 +111,40 @@
 
         todos.forEach((todo) => {
           const li = document.createElement("li");
-          li.textContent = JSON.stringify(todo);
+          li.className = `todo-item ${todo.done ? "done" : ""}`;
+
+          const main = document.createElement("div");
+          main.className = "todo-main";
+
+          const title = document.createElement("div");
+          title.className = "todo-title";
+          title.textContent = todo.title ?? "(제목 없음)";
+          main.appendChild(title);
+
+          const metaParts = [];
+          if (todo.amount !== undefined && todo.amount !== null) {
+            metaParts.push(`수량: ${todo.amount}`);
+          }
+          if (todo.due_date) {
+            metaParts.push(`마감일: ${todo.due_date}`);
+          }
+          if (todo.created_at) {
+            metaParts.push(`등록일: ${new Date(todo.created_at).toLocaleDateString("ko-KR")}`);
+          }
+          if (metaParts.length > 0) {
+            const meta = document.createElement("div");
+            meta.className = "todo-meta";
+            meta.textContent = metaParts.join(" · ");
+            main.appendChild(meta);
+          }
+
+          li.appendChild(main);
+
+          const status = document.createElement("span");
+          status.className = `todo-status ${todo.done ? "done" : "pending"}`;
+          status.textContent = todo.done ? "완료" : "진행 중";
+          li.appendChild(status);
+
           listEl.appendChild(li);
         });
       } catch (err) {
